@@ -28,4 +28,5 @@ This repository is configured for deployment at `/running_simulator_web/`.
 ## Assets
 
 - `orlando_stadium_4k.hdr` is bundled automatically during the Vite build.
-- `trackfield_22fbx.glb` is optional at runtime right now. If it is absent, the app shows a fallback running track preview instead of failing.
+- Put `trackfield_22fbx.glb` in the repository root, next to `package.json`. Vite now bundles it automatically during `npm run build`, so it will be deployed with GitHub Pages.
+- If `trackfield_22fbx.glb` is absent, the app shows a fallback running track preview instead of failing.

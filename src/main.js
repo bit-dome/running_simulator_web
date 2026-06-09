@@ -5,7 +5,7 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 
 const environmentMapUrl = new URL('../orlando_stadium_4k.hdr', import.meta.url).href;
-const stadiumModelUrl = `${import.meta.env.BASE_URL}trackfield_22fbx.glb`;
+const stadiumModelUrl = new URL('../trackfield_22fbx.glb', import.meta.url).href;
 
 const CAMERA_START = new THREE.Vector3(0, 1.5, 35);
 const MIN_MOVE_SPEED = 2;
