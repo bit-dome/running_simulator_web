@@ -33,6 +33,10 @@ const swayRollValue = document.querySelector('#swayRollValue');
 const swayPitchValue = document.querySelector('#swayPitchValue');
 const swayYawValue = document.querySelector('#swayYawValue');
 
+const loadStatus = document.createElement('div');
+loadStatus.className = 'load-status';
+loadStatus.textContent = 'Loading stadium assets...';
+
 const scene = new THREE.Scene();
 scene.fog = new THREE.Fog(0x091019, 45, 180);
 
@@ -47,6 +51,7 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.setSize(window.innerWidth, window.innerHeight);
 const app = document.querySelector('#app');
 app.appendChild(renderer.domElement);
+app.appendChild(loadStatus);
 
 const crosshair = document.createElement('div');
 crosshair.className = 'crosshair';
@@ -101,6 +106,55 @@ function applyAnisotropicFiltering(material) {
   }
 }
 
+function setLoadStatus(message, tone = 'info') {
+  loadStatus.textContent = message;
+  loadStatus.dataset.tone = tone;
+}
+
+function createFallbackTrack() {
+  const fallbackGroup = new THREE.Group();
+
+  const field = new THREE.Mesh(
+    new THREE.CircleGeometry(28, 96),
+    new THREE.MeshStandardMaterial({ color: 0x2c6b3f, roughness: 0.95, metalness: 0.02 }),
+  );
+  field.rotation.x = -Math.PI / 2;
+  field.position.y = -0.005;
+  fallbackGroup.add(field);
+
+  const track = new THREE.Mesh(
+    new THREE.RingGeometry(30, 42, 128),
+    new THREE.MeshStandardMaterial({ color: 0xb65e2f, roughness: 0.98, metalness: 0.01 }),
+  );
+  track.rotation.x = -Math.PI / 2;
+  track.position.y = -0.004;
+  fallbackGroup.add(track);
+
+  const laneLines = new THREE.Group();
+  for (let radius = 32; radius <= 40; radius += 2) {
+    const lane = new THREE.Mesh(
+      new THREE.RingGeometry(radius - 0.06, radius + 0.06, 128),
+      new THREE.MeshBasicMaterial({ color: 0xf5f0db }),
+    );
+    lane.rotation.x = -Math.PI / 2;
+    lane.position.y = -0.003;
+    laneLines.add(lane);
+  }
+  fallbackGroup.add(laneLines);
+
+  const infieldLine = new THREE.Mesh(
+    new THREE.RingGeometry(27.7, 27.9, 128),
+    new THREE.MeshBasicMaterial({ color: 0xf5f0db }),
+  );
+  infieldLine.rotation.x = -Math.PI / 2;
+  infieldLine.position.y = -0.003;
+  fallbackGroup.add(infieldLine);
+
+  return fallbackGroup;
+}
+
+scene.add(createFallbackTrack());
+
 loader.load(
   stadiumModelUrl,
   (gltf) => {
@@ -111,10 +165,12 @@ loader.load(
     });
 
     scene.add(gltf.scene);
+    setLoadStatus('Stadium model loaded.', 'success');
   },
   undefined,
   (error) => {
     console.error(error);
+    setLoadStatus('Stadium model missing. Running fallback track preview.', 'warning');
   },
 );
 
