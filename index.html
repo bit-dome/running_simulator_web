@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trackfield Viewer</title>
+  </head>
+  <body>
+    <div id="app">
+      <div id="telemetry" class="telemetry">x: 0.00 y: 1.50 z: 35.00 yaw: 0.00 speed: 2.00</div>
+      <aside class="controls">
+        <label class="control">
+          <span class="control-header">
+            <span>Speed</span>
+            <output id="moveSpeedValue" for="moveSpeed">2</output>
+          </span>
+          <input id="moveSpeed" type="range" min="2" max="60" step="2" value="2" />
+        </label>
+        <label class="control">
+          <span class="control-header">
+            <span>Left-right sway</span>
+            <output id="swayHorizontalValue" for="swayHorizontal">0.04</output>
+          </span>
+          <input id="swayHorizontal" type="range" min="0" max="1" step="0.01" value="0.04" />
+        </label>
+        <label class="control">
+          <span class="control-header">
+            <span>Up-down sway</span>
+            <output id="swayVerticalValue" for="swayVertical">0.12</output>
+          </span>
+          <input id="swayVertical" type="range" min="0" max="1" step="0.01" value="0.12" />
+        </label>
+        <label class="control">
+          <span class="control-header">
+            <span>Sway frequency</span>
+            <output id="swayFrequencyValue" for="swayFrequency">9.5</output>
+          </span>
+          <input id="swayFrequency" type="range" min="1" max="20" step="0.5" value="9.5" />
+        </label>
+        <label class="control">
+          <span class="control-header">
+            <span>Roll noise</span>
+            <output id="swayRollValue" for="swayRoll">0.060</output>
+          </span>
+          <input id="swayRoll" type="range" min="0" max="0.2" step="0.005" value="0.06" />
+        </label>
+        <label class="control">
+          <span class="control-header">
+            <span>Pitch noise</span>
+            <output id="swayPitchValue" for="swayPitch">0.020</output>
+          </span>
+          <input id="swayPitch" type="range" min="0" max="0.2" step="0.005" value="0.02" />
+        </label>
+        <label class="control">
+          <span class="control-header">
+            <span>Yaw sway</span>
+            <output id="swayYawValue" for="swayYaw">0.015</output>
+          </span>
+          <input id="swayYaw" type="range" min="0" max="0.2" step="0.005" value="0.015" />
+        </label>
+      </aside>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
