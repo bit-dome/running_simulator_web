@@ -4,6 +4,9 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 
+const environmentMapUrl = new URL('../orlando_stadium_4k.hdr', import.meta.url).href;
+const stadiumModelUrl = `${import.meta.env.BASE_URL}trackfield_22fbx.glb`;
+
 const CAMERA_START = new THREE.Vector3(0, 1.5, 35);
 const MIN_MOVE_SPEED = 2;
 const MAX_MOVE_SPEED = 60;
@@ -66,7 +69,7 @@ const loader = new GLTFLoader();
 const rgbeLoader = new RGBELoader();
 
 rgbeLoader.load(
-  '/orlando_stadium_4k.hdr',
+  environmentMapUrl,
   (texture) => {
     texture.mapping = THREE.EquirectangularReflectionMapping;
     scene.background = texture;
@@ -99,7 +102,7 @@ function applyAnisotropicFiltering(material) {
 }
 
 loader.load(
-  '/trackfield_22fbx.glb',
+  stadiumModelUrl,
   (gltf) => {
     gltf.scene.traverse((node) => {
       if (node.isMesh) {
