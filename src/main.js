@@ -14,7 +14,7 @@ import { BokehPass } from 'three/examples/jsm/postprocessing/BokehPass.js';
 const environmentMapUrl = new URL('../orlando_stadium_4k.hdr', import.meta.url).href;
 const stadiumModelUrl = new URL('../trackfield_22fbx.glb', import.meta.url).href;
 
-const CAMERA_START = new THREE.Vector3(0, 1.6, 35);
+const CAMERA_START = new THREE.Vector3(0, 1.8, 35);
 const MIN_MOVE_SPEED = 2;
 const MAX_MOVE_SPEED = 60;
 const MOVE_SPEED_STEP = 2;
@@ -77,6 +77,7 @@ const scene = new THREE.Scene();
 scene.fog = new THREE.Fog(0x091019, 45, 180);
 scene.backgroundBlurriness = 0.03;
 
+// FOV
 const camera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.1, 500);
 camera.position.copy(CAMERA_START);
 camera.rotation.order = 'YXZ';
