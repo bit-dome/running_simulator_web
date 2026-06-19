@@ -75,6 +75,13 @@ canvas {
   white-space: nowrap;
 }
 
+.telemetry,
+.controls,
+.load-status,
+.crosshair {
+  transition: opacity 140ms ease, visibility 140ms ease;
+}
+
 .load-status {
   position: fixed;
   left: 1rem;
@@ -120,6 +127,43 @@ canvas {
   border-radius: 14px;
   background: rgba(8, 12, 18, 0.52);
   backdrop-filter: blur(12px);
+}
+
+.ui-toggle {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 3;
+  border: 1px solid rgba(244, 241, 232, 0.22);
+  border-radius: 999px;
+  padding: 0.45rem 0.8rem;
+  background: rgba(8, 12, 18, 0.72);
+  backdrop-filter: blur(12px);
+  color: inherit;
+  font: inherit;
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 120ms ease, border-color 120ms ease, transform 120ms ease;
+}
+
+.ui-toggle:hover {
+  background: rgba(244, 241, 232, 0.14);
+  border-color: rgba(244, 241, 232, 0.32);
+}
+
+.ui-toggle:active {
+  transform: translateY(1px);
+}
+
+.ui-hidden .telemetry,
+.ui-hidden .controls,
+.ui-hidden .load-status,
+.ui-hidden .crosshair {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
 
 .preset-bar {

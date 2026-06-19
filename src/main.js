@@ -27,6 +27,7 @@ const MAX_PIXEL_RATIO = 2;
 
 const telemetry = document.querySelector('#telemetry');
 const presetToggle = document.querySelector('#presetToggle');
+const uiToggle = document.querySelector('#uiToggle');
 const moveSpeedInput = document.querySelector('#moveSpeed');
 const swayHorizontalInput = document.querySelector('#swayHorizontal');
 const swayVerticalInput = document.querySelector('#swayVertical');
@@ -589,6 +590,13 @@ function updatePresetToggle() {
   presetToggle.dataset.preset = activePreset;
 }
 
+function updateUiToggle() {
+  const uiHidden = document.body.classList.contains('ui-hidden');
+  uiToggle.textContent = uiHidden ? 'Show UI' : 'Hide UI';
+  uiToggle.setAttribute('aria-pressed', String(uiHidden));
+  uiToggle.setAttribute('aria-label', uiHidden ? 'Show interface' : 'Hide interface');
+}
+
 function applyPreset(presetName) {
   const preset = SWAY_PRESETS[presetName];
 
@@ -639,6 +647,10 @@ presetToggle.addEventListener('click', () => {
   const nextPreset = PRESET_ORDER[(currentIndex + 1) % PRESET_ORDER.length];
   applyPreset(nextPreset);
 });
+uiToggle.addEventListener('click', () => {
+  document.body.classList.toggle('ui-hidden');
+  updateUiToggle();
+});
 
 window.addEventListener('keydown', (event) => {
   if (!event.repeat && event.code === 'Digit1') {
@@ -686,6 +698,8 @@ window.addEventListener('resize', () => {
   composer.setSize(window.innerWidth, window.innerHeight);
   bokehPass.uniforms.aspect.value = camera.aspect;
 });
+
+updateUiToggle();
 
 function updateMovement(deltaSeconds) {
   let isMoving = false;
